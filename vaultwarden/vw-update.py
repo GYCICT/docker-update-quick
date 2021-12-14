@@ -18,7 +18,7 @@ vw_github_version = r.url.split('/')[-1]
 
 
 # Pull Current Version for vaultwarden
-with open('vaultwarden-update') as vaultwarden:
+with open('/scripts/docker-scripts/vaultwarden/vaultwarden-update') as vaultwarden:
     v_file_content = vaultwarden.read()
     v_file_match = re.search(r'(dockerversion=([0-9.]*))', v_file_content)
     v_file_version = v_file_match.group(2)
@@ -32,7 +32,7 @@ while True:
         url = 'https://github.com/vaultwarden/vaultwarden/releases/latest'
         r = requests.get(url)
         vw_github_version = r.url.split('/')[-1]
-        with open('vaultwarden-update') as vaultwarden:
+        with open('/scripts/docker-scripts/vaultwarden/vaultwarden-update') as vaultwarden:
             v_file_content = vaultwarden.read()
             v_file_match = re.search(r'(dockerversion=([0-9.]*))', v_file_content)
             v_file_version = v_file_match.group(2)
@@ -42,7 +42,7 @@ while True:
         print('vaultwarden requires an update')
         print('Updating From:',v_file_version)
         print('Latest Version:',vw_github_version)
-        with open('vaultwarden-update') as vaultwarden:
+        with open('/scripts/docker-scripts/vaultwarden/vaultwarden-update') as vaultwarden:
             v_file_content = vaultwarden.read()
             v_file_match = re.search(r'(dockerversion=([0-9.]*))', v_file_content)
             v_file_version = v_file_match.group(2)
@@ -52,7 +52,7 @@ while True:
 # Check who is higher
 if LooseVersion(vw_github_version) > LooseVersion(v_file_version):
     # print(f'github version ({github_version}) > file version ({file_version})')
-    with open('vaultwarden-update', 'w') as vaultwarden:
+    with open('/scripts/docker-scripts/vaultwarden/vaultwarden-update', 'w') as vaultwarden:
         p_new_file_content = v_file_content.replace(v_file_match.group(1), f'dockerversion={vw_github_version}')
         vaultwarden.write(p_new_file_content)
         vaultwarden.close()
