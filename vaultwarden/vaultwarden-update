@@ -3,7 +3,7 @@
 # Docker Variables
 containerid=$(docker ps -qf "name=vaultwarden")
 imageid=$(docker images -q vaultwarden/server)
-dockerversion=1.23.0
+dockerversion=1.25.0
 
 # Stop/RM Image
 docker stop $containerid
@@ -14,4 +14,10 @@ docker rmi $imageid
 docker pull vaultwarden/server:$dockerversion
 
 # Run New Version
-docker run -d --name vaultwarden --restart=always -v /vw-data/:/data/ -p 80:80 vaultwarden/server:$dockerversion
+docker run -d --name vaultwarden \
+--restart=always \
+-e ROCKET_TLS='{certs="/ssl/certs.perm",key="key.pem"}' \
+-v /ssl/:/ssl/ \
+-v /vw-data/:/data/ \
+-p 443:80 \
+vaultwarden/server:$dockerversion
