@@ -16,7 +16,7 @@ docker pull vaultwarden/server:$dockerversion
 # Run New Version
 docker run -d --name vaultwarden \
 --restart=always \
--e ROCKET_TLS='{certs="/ssl/certs.perm",key="key.pem"}' \
+-e ROCKET_TLS='{certs="/ssl/cert.perm",key="priv.key"}' \
 -v /ssl/:/ssl/ \
 -v /vw-data/:/data/ \
 -p 443:80 \
