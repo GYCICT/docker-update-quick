@@ -59,7 +59,7 @@ if LooseVersion(pgithub_version) > LooseVersion(p_file_version):
         print('Updating Portainer')
         time.sleep(1)
 
-        cmd = 'bash portainer-update'
+        cmd = 'bash /scripts/docker-scripts/portainer/portainer-update'
     subprocess.run([cmd], shell=True)
 
     print('Updated')
